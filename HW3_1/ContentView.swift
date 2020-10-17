@@ -13,43 +13,44 @@ struct ContentView: View {
     @State var opacityMax = (true, false, false)
     
     var body: some View {
-        
-        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 20) {
-            
-            makeCircle(color: .red, opacity: opacityMax.0 ? 1.0 : 0.5)
-            makeCircle(color: .yellow, opacity: opacityMax.1 ? 1.0 : 0.5)
-            makeCircle(color: .green, opacity: opacityMax.2 ? 1.0 : 0.5)
-            
-            Spacer()
-            
-            Button(action: {
-                if opacityMax.0 {
-                    if lableButton == "Start" { lableButton = "Next" }
-                    opacityMax.1.toggle()
-                    opacityMax.0.toggle()
+        ZStack {
+            Color(#colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 25) {
+                VStack {
+                makeCircle(color: .red, opacity: opacityMax.0 ? 1.0 : 0.5)
+                makeCircle(color: .yellow, opacity: opacityMax.1 ? 1.0 : 0.5)
+                makeCircle(color: .green, opacity: opacityMax.2 ? 1.0 : 0.5)
                 }
-                else if opacityMax.1 {
-                    opacityMax.1.toggle()
-                    opacityMax.2.toggle()
+                .padding(10)
+                .border(Color.gray, width: 3).cornerRadius(20.0)
+                
+                Spacer()
+                
+                Button(action: {
+                    if opacityMax.0 {
+                        if lableButton == "Start" { lableButton = "Next" }
+                        opacityMax.1.toggle()
+                        opacityMax.0.toggle()
+                    }
+                    else if opacityMax.1 {
+                        opacityMax.1.toggle()
+                        opacityMax.2.toggle()
+                    }
+                    else {
+                        opacityMax.2.toggle()
+                        opacityMax.0.toggle()
+                    }
+                } ) {
+                    Text(lableButton).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).bold()
                 }
-                else {
-                    opacityMax.2.toggle()
-                    opacityMax.0.toggle()
-                }
-            } ) {
-                Text(lableButton)
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .foregroundColor(.blue)
-                    .bold()
+                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 50, alignment: .center)
+                .border(Color.blue, width: 3)
+                .cornerRadius(15)
             }
-            .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 50, alignment: .center)
-            .border(Color.blue, width: 5)
-            .cornerRadius(20)
+            .padding(25)
         }
-        .padding(20)
-        .clipped()
     }
-   
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -61,7 +62,7 @@ struct ContentView_Previews: PreviewProvider {
 func makeCircle(color: Color, opacity: Double) -> some View {
     return Circle()
         .foregroundColor(color)
-        .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .frame(width: 80, height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
         .opacity(opacity)
 }
 
